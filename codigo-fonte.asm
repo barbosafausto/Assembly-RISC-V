@@ -55,26 +55,47 @@ interface:
 get_input:
 	addi a7, zero, 5		# código de serviço ReadInt
 	ecall				# resultado fica automaticamente em a0
-	addi s2, zero, a0		# ENTRADA FICA SALVA EM s2
+	mv s2, a0			# ENTRADA FICA SALVA EM s2
 	
 branch_from_input:			# ve qual é a entrada e pula pra função correspondente
 
 	# 1 - Adicionar no início
 	addi t0, zero, 1			
-	beq s2, t0, opcao_1		# Se s2 == 1, pule para opcao_1
+	beq s2, t0, add_ini		# Se s2 == 1, pule jump pro add_ini
 	
-	# O usuário escolheu 2 (Adicionar no final)?
-	li t0, 2			# Coloca 2 na balança (t0)
-	beq s2, t0, opcao_2		# Se s2 == 2, pule para opcao_2
+	# 2 - Adicionar no final
+	addi t0, zero, 2			
+	beq s2, t0, add_fim		# Se s2 == 2, pule para add_fim
 	
-	# O usuário escolheu 6 (Sair)?
-	li t0, 6			# Coloca 6 na balança
-	beq s2, t0, exit		# Se s2 == 6, pule para a sua função exit
+	# 3 - Remover por ID
+	addi t0, zero, 3			
+	beq s2, t0, rem_ID		# Se s2 == 3, [...]
 	
-	# E SE ELE DIGITAR 9? (Tratamento de erro)
-	# Se o processador chegar até esta linha, significa que nenhum dos 'beq' acima funcionou.
-	# Aqui você pode imprimir "Opção Inválida" e pular de volta para o menu!
-	j interface			# Volta lá para cima para imprimir o menu de novo!
+	# 4 - Listar Trem
+	addi t0, zero, 4			
+	beq s2, t0, listar		# Se s2 == 4, [...]
+	
+	# 5 - Buscar Vagão
+	addi t0, zero, 5			
+	beq s2, t0, buscar		# Se s2 == 5, [...]
+	
+	# 6 - Sair
+	addi t0, zero, 6			
+	beq s2, t0, exit		# Se s2 == 6 [...]
+	
+	# Se a entrada for qualquer outro número, faz o menu aparecer de novo e recebe a entrada de novo
+	j interface
+
+# ---------- FUNÇÕES DO MENU ----------
+add_ini:
+
+add_fim:
+
+rem_ID:
+
+listar:
+
+buscar:
 
 exit:	la a0, seeya			# printa mensagem de despedida 
 	addi a7, zero, 4		
