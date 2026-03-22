@@ -3,28 +3,28 @@
 	# --------- TEXTOS E FRASES ------------
 	
 	.align 0
-seeya:	.asciz "Obrigado por jogar!\n"	# Mensagem que será mostrada quando o jogador fechar o jogo.
+seeya:	.asciz "Obrigado por jogar!\n"	# Mensagem que serÃ¡ mostrada quando o jogador fechar o jogo.
 
 # Mensagem de boas vindas
-hola:   .asciz "Tchoo Tchoo! tá na hora de montar uns trem bão por aí >:D\n\n" 
+hola:   .asciz "Tchoo Tchoo! tÃ¡ na hora de montar uns trem bÃ£o por aÃ­ >:D\n\n" 
 
-# Mostrar como jogar ao usuário
+# Mostrar como jogar ao usuÃ¡rio
 instrucoes: 
-	.ascii "Como jogar? simples, seu objetivo é gerenciar um trem, podendo adicionar e remover vagões (mas não a cabeça, que é a locomotiva!), "
-	.ascii "além de listar o trem e buscar por vagões. Mas com algumas regras fixas: Só é possível adicionar vagões no início (depois da locomotiva) e no fim, "
-	.ascii "remover qualquer vagão que não seja a locomotiva (primeiro vagão), mas para isso é necessário fornecer o ID do vagão a ser removido.\n"
-	.ascii "Você pode também listar todos os vagões (e mostrar o ID de cada) e buscar por um vagão através do ID também. Veja o menu de ações:\n\n"
-	.asciz "Escolha uma das oções (1-6):"
+	.ascii "Como jogar? simples, seu objetivo Ã© gerenciar um trem, podendo adicionar e remover vagÃµes (mas nÃ£o a cabeÃ§a, que Ã© a locomotiva!), "
+	.ascii "alÃ©m de listar o trem e buscar por vagÃµes. Mas com algumas regras fixas: SÃ³ Ã© possÃ­vel adicionar vagÃµes no inÃ­cio (depois da locomotiva) e no fim, "
+	.ascii "remover qualquer vagÃ£o que nÃ£o seja a locomotiva (primeiro vagÃ£o), mas para isso Ã© necessÃ¡rio fornecer o ID do vagÃ£o a ser removido.\n"
+	.ascii "VocÃª pode tambÃ©m listar todos os vagÃµes (e mostrar o ID de cada) e buscar por um vagÃ£o atravÃ©s do ID tambÃ©m. Veja o menu de aÃ§Ãµes:\n\n"
+	.asciz "Escolha uma das oÃ§Ãµes (1-6):"
 
-# Menu de ações
-# Dev note: Lembrar de no final de cada função (exceto sair) dar jump para cá novamente
+# Menu de aÃ§Ãµes
+# Dev note: Lembrar de no final de cada funÃ§Ã£o (exceto sair) dar jump para cÃ¡ novamente
 mostrarMenu:
 	.ascii "\n"
-	.ascii "1 - Adicionar vagão no início.\n"
-	.ascii "2 - Adicionar vagão no final.\n"
-	.ascii "3 - Remover vagão por ID.\n"
+	.ascii "1 - Adicionar vagÃ£o no inÃ­cio.\n"
+	.ascii "2 - Adicionar vagÃ£o no final.\n"
+	.ascii "3 - Remover vagÃ£o por ID.\n"
 	.ascii "4 - Listar trem.\n"
-	.ascii "5 - Buscar vagão.\n"
+	.ascii "5 - Buscar vagÃ£o.\n"
 	.asciz "6 - sair.\n\n"
 	
 txt_inicio: .asciz "\n--- COMPOSICAO DO TREM ---\n"
@@ -34,65 +34,88 @@ txt_fecha:  .asciz "]\n"
 	
 	
 	.align 2
-	.text				# Segmento de Código
+	.text				# Segmento de CÃ³digo
 	.globl main
 	
-main:	# ---------- DICIONÁRIO DE REGISTRADORES E VARIÁVEIS --------------
-	# s0 -> guarda ponteiro da locomotiva cabeça (não mexer)
-	# s1 -> quantidade de vagões (provavelmente inútil mas veremos)
-	# s2 -> guarda entrada do usuário pro menu de ações
+main:	# ---------- DICIONÃRIO DE REGISTRADORES E VARIÃVEIS --------------
+	# s0 -> guarda ponteiro da locomotiva cabeÃ§a (nÃ£o mexer)
+	# s1 -> quantidade de vagÃµes (provavelmente inÃºtil mas veremos)
+	# s2 -> guarda entrada do usuÃ¡rio pro menu de aÃ§Ãµes
 	
 	# usado na listagem:
-	# s3 -> iterador, percorre o trem desde a locomotiva até o último vagão
-	# s4 -> guarda o ID do vagão atual
-	# S5 -> guarda o tipo do vagão atal
+	# s3 -> iterador, percorre o trem desde a locomotiva atÃ© o Ãºltimo vagÃ£o
+	# s4 -> guarda o ID do vagÃ£o atual
+	# S5 -> guarda o tipo do vagÃ£o atal
 	
-	# ID da cabeça = 0, próximos vagões serão 1, 2, 3, etc
-	# TIPOS: 1 = cabeça, 2 = carga, 3 = passageiro (exemplo)
+	# ID da cabeÃ§a = 0, prÃ³ximos vagÃµes serÃ£o 1, 2, 3, etc
+	# TIPOS: 1 = cabeÃ§a, 2 = carga, 3 = passageiro (exemplo)
 
-	# ---------- ADIÇÃO DA LOCOMOTIVA (VAGÃO CABEÇA) ----------
+	# ---------- ADIÃ‡ÃƒO DA LOCOMOTIVA (VAGÃƒO CABEÃ‡A) ----------
 	
-	# alocar memória para cabeça
-	addi a7, zero, 9	# serviço 9 -> alocação de memória
-	addi a0, zero, 12	# instruir quantidade: 12 bytes de espaço (4 ID, 4 TIPO, 4 PONTEIRO)
-	ecall			# endereço retornado no a0 também
+	# alocar memÃ³ria para cabeÃ§a
+	addi a7, zero, 9	# serviÃ§o 9 -> alocaÃ§Ã£o de memÃ³ria
+	addi a0, zero, 12	# instruir quantidade: 12 bytes de espaÃ§o (4 ID, 4 TIPO, 4 PONTEIRO)
+	ecall			# endereÃ§o retornado no a0 tambÃ©m
 	
-	mv s0, a0		# agora o endereço da cabeça está guardado em s0, NÃO MUDAR!!!!
+	mv s0, a0		# agora o endereÃ§o da cabeÃ§a estÃ¡ guardado em s0, NÃƒO MUDAR!!!!
 	
-	# preenchimento dos dados na memória RAM no espaço alocado
-	addi t1, zero, 0 		# ID DA LOCOMOTIVA (CABEÇA) = 0?
-	addi t2, zero, 1		# TIPO: CABEÇA, PODE SER 1 ?
+	# preenchimento dos dados na memÃ³ria RAM no espaÃ§o alocado
+	addi t1, zero, 0 		# ID DA LOCOMOTIVA (CABEÃ‡A) = 0?
+	addi t2, zero, 1		# TIPO: CABEÃ‡A, PODE SER 1 ?
 	
 	sw t1, 0(s0)		# offset 0 (0-3) guarda ID
 	sw t2, 4(s0)		# offset 4 (4-7) guarda tipo
-	sw zero, 8(s0)		# offset 8 (8-11) guarda ponteiro, como só tem a locomotiva o ponteiro é NULL (zero)
+	sw zero, 8(s0)		# offset 8 (8-11) guarda ponteiro, como sÃ³ tem a locomotiva o ponteiro Ã© NULL (zero)
 				# sistema de 32 bits -> 4 bytes, portanto ponteiro tem 4 bytes de tamanho
 	
-	addi s1, zero, 1	# O jogo já começa com 1 vagão
-	addi s2, zero, 0	# Menu começa zerado por default
+	# ---------- TESTE - ALOCAÃ‡ÃƒO DE MEMÃ“RIA PARA SEGUNDO VAGÃƒO DE TESTE ----------
+	
+	# alocar memÃ³ria para possÃ­vel segund vagÃ£o
+	addi a7, zero, 9	# serviÃ§o 9 -> AlocaÃ§Ã£o de memÃ³ria
+	addi a0, zero, 12	# pede 12 bytes de espaÃ§o
+	ecall			# endereÃ§o do novo vagÃ£o retorna em a0
+	
+	# preencher os dados do vagÃ£o 1 (pÃ³s locomotiva) (que estÃ¡ no endereÃ§o a0)
+	addi t1, zero, 1	# ID 1
+	addi t2, zero, 2	# TIPO: 2 (Carga)
+	
+	sw t1, 0(a0)		# offset 0 -> guarda o ID 1 
+	sw t2, 4(a0)		# offset 4 -> guarda o Tipo 
+	sw zero, 8(a0)		# offset 8 -> ponteiro Ã© NULL, pois ele Ã© o Ãºltimo da fila agora
+	
+	# ligaÃ§Ã£o do ex-Ãºltimo vagÃ£o ao atual Ãºltimo vagÃ£o
+	# a cabeÃ§a estÃ¡ no endereÃ§o s0. O offset 8 dela estava com 'zero'.
+	# -> colocar o endereÃ§o do novo vagÃ£o (a0) lÃ¡ dentro
+	sw a0, 8(s0)		# locomotiva agora aponta para o prÃ³ximo vagÃ£o
+
+	# -----------------------------------------------------------
+
+	# Atualizar contador e iniciar o jogo
+	addi s1, zero, 2	# O jogo comeÃ§a com 2 vagÃµes (locomotiva + vagÃ£o teste)
+	addi s2, zero, 0	# menu comeÃ§a zerado
 	
 	# ------- INICIO DO JOGO ---------
-	la a0, hola			# Muda o valor de a0 para o endereço do primeiro byte do string de rótulo "hola"
-	addi a7, zero, 4		# Imprime o string encontrado em a0 na próxima chamada do sistema, que é a mensagem de boas vindas
+	la a0, hola			# Muda o valor de a0 para o endereÃ§o do primeiro byte do string de rÃ³tulo "hola"
+	addi a7, zero, 4		# Imprime o string encontrado em a0 na prÃ³xima chamada do sistema, que Ã© a mensagem de boas vindas
 	ecall
 	
-	la a0, instrucoes		# printa ao usuário como jogar
+	la a0, instrucoes		# printa ao usuÃ¡rio como jogar
 	addi a7, zero, 4
 	ecall
 	
 interface:	
-	la a0, mostrarMenu		# printa o meno de ações
+	la a0, mostrarMenu		# printa o meno de aÃ§Ãµes
 	addi a7, zero, 4
 	ecall
 	
 get_input:
-	addi a7, zero, 5		# código de serviço ReadInt
+	addi a7, zero, 5		# cÃ³digo de serviÃ§o ReadInt
 	ecall				# resultado fica automaticamente em a0
 	mv s2, a0			# ENTRADA FICA SALVA EM s2
 	
-branch_from_input:			# ve qual é a entrada e pula pra função correspondente
+branch_from_input:			# ve qual Ã© a entrada e pula pra funÃ§Ã£o correspondente
 
-	# 1 - Adicionar no início
+	# 1 - Adicionar no inÃ­cio
 	addi t0, zero, 1			
 	beq s2, t0, add_ini		# Se s2 == 1, pule jump pro add_ini
 	
@@ -108,7 +131,7 @@ branch_from_input:			# ve qual é a entrada e pula pra função correspondente
 	addi t0, zero, 4			
 	beq s2, t0, listar		# Se s2 == 4, [...]
 	
-	# 5 - Buscar Vagão
+	# 5 - Buscar VagÃ£o
 	addi t0, zero, 5			
 	beq s2, t0, buscar		# Se s2 == 5, [...]
 	
@@ -116,10 +139,10 @@ branch_from_input:			# ve qual é a entrada e pula pra função correspondente
 	addi t0, zero, 6			
 	beq s2, t0, exit		# Se s2 == 6 [...]
 	
-	# Se a entrada for qualquer outro número, faz o menu aparecer de novo e recebe a entrada de novo
+	# Se a entrada for qualquer outro nÃºmero, faz o menu aparecer de novo e recebe a entrada de novo
 	j interface
 
-# ---------- FUNÇÕES DO MENU ----------
+# ---------- FUNÃ‡Ã•ES DO MENU ----------
 add_ini:	j interface
 
 add_fim:	j interface
@@ -127,41 +150,41 @@ add_fim:	j interface
 rem_ID:		j interface
 
 listar:	
-	la a0, txt_inicio		# chama serviço de imprimir texto pra imprimir o cabeçalho de enfeite
+	la a0, txt_inicio		# chama serviÃ§o de imprimir texto pra imprimir o cabeÃ§alho de enfeite
 	addi a7, zero, 4
 	ecall
 	
-	mv s3, s0			# s3 = PONTEIRO QUE VAI PERCORRER O TREM, COMEÇA NA CABEÇA, EX: ITERADOR
+	mv s3, s0			# s3 = PONTEIRO QUE VAI PERCORRER O TREM, COMEÃ‡A NA CABEÃ‡A, EX: ITERADOR
 loop_listar:
-	#CONDIÇÃO PARADA
-	beq s3, zero, interface		# se o ponteiro for null, significa que não tem "Próximo vagão", acabou
+	#CONDIÃ‡ÃƒO PARADA
+	beq s3, zero, interface		# se o ponteiro for null, significa que nÃ£o tem "PrÃ³ximo vagÃ£o", acabou
 	
-	#LER VAGÃO ATUAL
+	#LER VAGÃƒO ATUAL
 	lw s4, 0(s3)			# s4 = ID, offset 0
 	lw s5, 4(s3)			# s5 = tipo, offset 4
 	
-	# ----------------- IMPRESSAO -------------------------  (pqp como dá trabalho pra imprimir texto em assembly)
-	# chamada e impressão de " -> [ID : "
+	# ----------------- IMPRESSAO -------------------------  (pqp como dÃ¡ trabalho pra imprimir texto em assembly)
+	# chamada e impressÃ£o de " -> [ID : "
 	la a0, txt_id
 	addi a7, zero, 4
 	ecall	
 	
-	# chamada e impressão do ID
+	# chamada e impressÃ£o do ID
 	mv a0, s4			# move o valor do ID armazenado em s4 para a0
-	addi a7, zero, 1		# Serviço 1 -> imprime inteiro
+	addi a7, zero, 1		# ServiÃ§o 1 -> imprime inteiro
 	ecall
 	
-	# chamada e impressão de " | Tipo: "
+	# chamada e impressÃ£o de " | Tipo: "
 	la a0, txt_tipo
 	addi a7, zero, 4
 	ecall
 	
-	# chamada e impressão do tipo
+	# chamada e impressÃ£o do tipo
 	mv a0, s5			# move o valor do tipo armazenado em s5 para a0
-	addi a7, zero, 1		# Serviço 1 -> imprime inteiro
+	addi a7, zero, 1		# ServiÃ§o 1 -> imprime inteiro
 	ecall
 	
-	# chamada e impressão de "]\n" (fechar e pular linha só
+	# chamada e impressÃ£o de "]\n" (fechar e pular linha sÃ³
 	la a0, txt_fecha
 	addi a7, zero, 4
 	ecall
@@ -169,7 +192,7 @@ loop_listar:
 	#ATUALIZACAO DO PONTEIRO ex: atual = atual->proximo
 	lw s3, 8(s3)
 	
-	#continua loop até parada (alcançar o fim do trem, cujo ponteiro é nulo), 
+	#continua loop atÃ© parada (alcanÃ§ar o fim do trem, cujo ponteiro Ã© nulo), 
 	j loop_listar
 
 buscar:	j interface
@@ -178,5 +201,5 @@ exit:	la a0, seeya			# printa mensagem de despedida
 	addi a7, zero, 4		
 	ecall
 	
-	addi a7, zero, 10		# Encerra o programa na próxima chamada do sistema
+	addi a7, zero, 10		# Encerra o programa na prÃ³xima chamada do sistema
 	ecall
