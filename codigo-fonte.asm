@@ -9,7 +9,7 @@
 			.align 0												
 			
 # Mensagem de boas vindas 
-hola:   	.asciz "Tchoo Tchoo! Tá na hora de montar uns trem bão por aí >:D\n\n"				
+hola:   	.asciz "\nTchoo Tchoo! Tá na hora de montar uns trem bão por aí >:D\n\n"				
 
 # Instruções de como jogar [para o usuário]
 instrucoes: 
