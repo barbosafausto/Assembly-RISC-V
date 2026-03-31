@@ -1,77 +1,76 @@
 # --------- SEGMENTO DE DADOS ---------- #
-			.data				
+						.data				
 
 
 # --------- Textos e Frases
 
 
-			# strings pode sem armazenadas com quaisquer alinhamentos.
-			.align 0												
+						# strings pode sem armazenadas com quaisquer alinhamentos.
+						.align 0												
 			
 # Mensagem de boas vindas 
-hola:   		.asciz "Tchoo Tchoo! Tá na hora de montar uns trem bão por aí >:D\n\n"				
+hola:   				.asciz "Tchoo Tchoo! Tá na hora de montar uns trem bão por aí >:D\n\n"				
 
 # Instruções de como jogar [para o usuário]
 instrucoes: 
-            .ascii "Como jogar? Simples: o seu objetivo é gerenciar um trem de acordo com as 6 funções dispostas no menu de ações.\n\n"
-            .ascii "Regras: \n"
-            .ascii "1. Só é possível adicionar vagões no início do trem (ao lado da locomotiva) e no fim.\n"
-            .ascii "2. Para remover ou buscar qualquer vagão (primeiro vagão) é necessário fornecer o ID do vagão a ser removido.\n"
-            .ascii "3. É importante esclarecer que cada vagão é representado por um ID (código único) e um código de tipo (1 = locomotiva, 2 = carga, etc).\n"
-            .asciz "4. A locomotiva possui ID = 0 e tipo = 1. Não é possível mexer na locomotiva existente ou inserir outras locomotivas no trem.\n\n"
+						.ascii "Como jogar? Simples: o seu objetivo é gerenciar um trem de acordo com as 6 funções dispostas no menu de ações.\n\n"
+						.ascii "Regras: \n"
+						.ascii "1. Só é possível adicionar vagões no início do trem (ao lado da locomotiva) e no fim.\n"
+						.ascii "2. Para remover ou buscar qualquer vagão (primeiro vagão) é necessário fornecer o ID do vagão a ser removido.\n"
+						.ascii "3. É importante esclarecer que cada vagão é representado por um ID (código único) e um código de tipo (1 = locomotiva, 2 = carga, etc).\n"
+						.asciz "4. A locomotiva possui ID = 0 e tipo = 1. Não é possível mexer na locomotiva existente ou inserir outras locomotivas no trem.\n\n"
 
 # Menu de ações
 # No final de cada função (exceto sair) há um jump que volta para o Menu
 mostrarMenu:
-			.ascii "\n"
-			.ascii "Menu de ações:\n"
-			.ascii "1 - Adicionar vagão no início.\n"
-			.ascii "2 - Adicionar vagão no final.\n"
-			.ascii "3 - Remover vagão por ID.\n"
-			.ascii "4 - Listar trem.\n"
-			.ascii "5 - Buscar vagão.\n"
-			.asciz "6 - Sair.\n\n"
+						.ascii "\n"
+						.ascii "Menu de ações:\n"
+						.ascii "1 - Adicionar vagão no início.\n"
+						.ascii "2 - Adicionar vagão no final.\n"
+						.ascii "3 - Remover vagão por ID.\n"
+						.ascii "4 - Listar trem.\n"
+						.ascii "5 - Buscar vagão.\n"
+						.asciz "6 - Sair.\n\n"
 
 
-# Mensagens que compõem a função 1: Adicionar vagão no início e <outra função possível>
-txt_ID:			.asciz "\nDigite o ID Único do novo vagão: "
-txt_Tipo:		.asciz "\nDigite o Tipo do novo vagão: "
-txt_ID_error:  		.asciz "\nErro! Outro vagão possui o ID informado. Tente novamente.\n"
-txt_ID_negativo:	.asciz "\nErro! O ID deve ser um número positivo. Tente novamente.\n"
-txt_type_error: 	.asciz "\nErro! Você não pode adicionar locomotivas. Tente novamente.\n"
-txt_type_negativo:	.asciz "\nErro! O Tipo deve ser um número positivo. Tente novamente.\n"
+# Mensagens essenciais para recebimento de ID e Tipo
+txt_ID:					.asciz "\nDigite o ID Único do novo vagão: "
+txt_Tipo:				.asciz "\nDigite o Tipo do novo vagão: "
+txt_ID_error:  			.asciz "\nErro! Outro vagão possui o ID informado. Tente novamente.\n"
+txt_ID_negativo:		.asciz "\nErro! O ID deve ser um número positivo. Tente novamente.\n"
+txt_type_error: 		.asciz "\nErro! Você não pode adicionar locomotivas. Tente novamente.\n"
+txt_type_negativo:		.asciz "\nErro! O Tipo deve ser um número positivo. Tente novamente.\n"
 
 # Mensagens que compõe a função 3: Remover vagão 
-txt_ID_rem:		.asciz "\nDigite o ID do vagão que deseja remover: "
-txt_nao_existe_rem:	.asciz "\nEsse vagão não pode ser removido, pois não existe no trem.\n"
-txt_locomotiva_rem:	.asciz "\nEsse vagão não pode ser removido, pois é a locomotiva.\n" 
-txt_fim_rem: 		.asciz "\nVagão removido com sucesso.\n"
+txt_ID_rem:				.asciz "\nDigite o ID do vagão que deseja remover: "
+txt_nao_existe_rem:		.asciz "\nEsse vagão não pode ser removido, pois não existe no trem.\n"
+txt_locomotiva_rem:		.asciz "\nEsse vagão não pode ser removido, pois é a locomotiva.\n" 
+txt_fim_rem: 			.asciz "\nVagão removido com sucesso.\n"
 
 # Mensagens que compõem a função 4: Listar trem	
-txt_inicio: 		.asciz "\n--- COMPOSIÇÃO DO TREM ---\n"
-txt_vagao:		.asciz "Vagão "
-txt_id:     		.asciz " -> [ID: "
-txt_tipo:   		.asciz " | Tipo: "
-txt_fecha:  		.asciz "]\n"
+txt_inicio: 			.asciz "\n--- COMPOSIÇÃO DO TREM ---\n"
+txt_vagao:				.asciz "Vagão "
+txt_id:     			.asciz " -> [ID: "
+txt_tipo:   			.asciz " | Tipo: "
+txt_fecha:  			.asciz "]\n"
 
 # Mensagens que compõe a função 5: Buscar vagão
-txt_ID_busca:		.asciz "\nDigite o ID do vagão que deseja buscar: "
-txt_existe_busca:	.asciz "\nEsse vagão existe.\n"
+txt_ID_busca:			.asciz "\nDigite o ID do vagão que deseja buscar: "
+txt_existe_busca:		.asciz "\nEsse vagão existe.\n"
 txt_nao_existe_busca:	.asciz "\nEsse vagão não existe.\n" 
 
-		
 # Mensagem que será mostrada quando o jogador fechar o jogo.
-seeya:		.asciz "Obrigado por jogar!\n"														
+seeya:					.asciz "Obrigado por jogar!\n"														
 
 
 
 	
 	# ------------ SEGMENTO DE CÓDIGO --------- #
 
-			.text	
-			
-			.align 2 # Todas as instruções são de 32 bits									
-			.globl main
+		.text	
+		
+		.align 2 # Todas as instruções são de 32 bits									
+		.globl main
 	
 main:	
 			
@@ -219,31 +218,32 @@ busca_ID:
 		# ---- Buscando ID
 	loop_busca_ID:	
 	
-			# Pegando ID do vagão
-			lw t0, 0(s3)
-			
-			# Comparando o ID do vagão com o parâmetro passado
-			beq t0, a0, existe_busca_ID
-			
-			# Caso não seja o ID desejado, passa-se para o próximo vagão -> s3 recebe para onde o ponteiro do vagão atual
-			lw s3, 8(s3)
-			
-			# Verificando se o trem acabou
-			bne s3, zero, loop_busca_ID
-			
-		# ---- Retorno no caso em que não existe vagão com aquele ID
-			addi a1, zero, 0
-			
-			# Voltando a instrução seguinte em relação a onde ocorreu a chamada
-			jr ra 
+				# Pegando ID do vagão
+				lw t0, 0(s3)
+				
+				# Comparando o ID do vagão com o parâmetro passado
+				beq t0, a0, existe_busca_ID
+				
+				# Caso não seja o ID desejado, passa-se para o próximo vagão -> s3 recebe para onde o ponteiro do vagão atual
+				lw s3, 8(s3)
+				
+				# Verificando se o trem acabou
+				bne s3, zero, loop_busca_ID
+				
+			# ---- Retorno no caso em que não existe vagão com aquele ID
+				addi a1, zero, 0
+				
+				# Voltando a instrução seguinte em relação a onde ocorreu a chamada
+				jr ra 
 	
 		# ---- Retorno no caso em que existe vagão com aquele ID
 	existe_busca_ID:
-			addi a1, zero, 1
-			
-			# Voltando a instrução seguinte em relação a onde ocorreu a chamada
-			jr ra
-	# ----- Fim da função busca_ID	
+				
+				addi a1, zero, 1
+				
+				# Voltando a instrução seguinte em relação a onde ocorreu a chamada
+				jr ra
+		# ----- Fim da função busca_ID	
 
 
 
@@ -267,55 +267,57 @@ get_ID:
 		# ---- Inicializações e lendo ID
 		
 	ini_get_ID:	# Impressão do texto que pede ID
-			addi a7, zero, 4
-			la a0, txt_ID
-			ecall
+				addi a7, zero, 4
+				la a0, txt_ID
+				ecall
 
-			# Leitura do ID do vagão
-			addi a7, zero, 5
-			ecall
+				# Leitura do ID do vagão
+				addi a7, zero, 5
+				ecall
+				
+				# Se o ID for negativo, não é válido
+				blt a0, zero, ID_negativo		
+				
+				# Salvando valor lido
+				mv t1, a0
 			
-			# Se o ID for negativo, não é válido
-			blt a0, zero, ID_negativo		
+			# ---- Buscando ID
+				# Parâmetro já está em a0
+				jal busca_ID
 			
-			# Salvando valor lido
-			mv t1, a0
-			
-		# ---- Buscando ID
-			# Parâmetro já está em a0
-			jal busca_ID
-			
-		# ---- Verificando retorno
-			
-			# Se a1 == 0, não existe vagão com aquele ID, então é válido
-			beq a1, zero, sair_get_ID 					
-	
-		# ----- Imprimindo que ID é inválido e voltando ao input do ID
+			# ---- Verificando retorno
+				
+				# Se a1 == 0, não existe vagão com aquele ID, então é válido
+				beq a1, zero, sair_get_ID 					
+		
+			# ----- Imprimindo que ID é inválido e voltando ao input do ID
 
-			addi a7, zero, 4
-			la a0, txt_ID_error
-			ecall
+				addi a7, zero, 4
+				la a0, txt_ID_error
+				ecall
 
-			j ini_get_ID
-			
-		# ---- Imprimindo que ID deve ser positivo e voltando ao input do ID
+				j ini_get_ID
+				
+			# ---- Imprimindo que ID deve ser positivo e voltando ao input do ID
 	ID_negativo:
-			la a0, txt_ID_negativo
-			addi a7, zero, 4
-			ecall
-			
-			j ini_get_ID
+
+				la a0, txt_ID_negativo
+				addi a7, zero, 4
+				ecall
+				
+				j ini_get_ID
 			
 		# ---- Saindo com ID válido
 	sair_get_ID:	
-			# Colocando resultado no registrador de retorno da função (a1)
-			mv a1, t1
-			
-			# Desempilhando endereço de retorno
-			lw ra, 0(sp)
-			addi sp, sp, 4
-			
-			jr ra
+
+				# Colocando resultado no registrador de retorno da função (a1)
+				mv a1, t1
+				
+				# Desempilhando endereço de retorno
+				lw ra, 0(sp)
+				addi sp, sp, 4
+				
+				jr ra
 
 	# ------ Fim da função get_ID
 
@@ -360,19 +362,21 @@ get_type:
 
 		# ----  Imprimindo que tipo é inválido e voltando ao input do ID 
 	type_error:
-			addi a7, zero, 4
-			la a0, txt_type_error
-			ecall
 
-			j get_type
+				addi a7, zero, 4
+				la a0, txt_type_error
+				ecall
+
+				j get_type
 			
 		# ---- Imprimindo que type deve ser positivo e voltando ao input do ID
 	type_negativo:
-			addi a7, zero, 4
-			la a0, txt_type_negativo
-			ecall
-			
-			j get_type
+				
+				addi a7, zero, 4
+				la a0, txt_type_negativo
+				ecall
+				
+				j get_type
 
 	# ----- Fim da função get_type
 
@@ -446,33 +450,34 @@ add_fim:
 	
 			# s3 = ponteiro (iterador) que vai percorrer o trem, começando na cabeça.
 			mv s3, s0
-loop_insercao:
-		# -------- Condição de parada
-			# Se o valor de s3 é nulo, s7 está atualmente no último vagão.
-			beq s3, zero, add_fim_2
-			
-			# s7 = auxiliador que guarda a posição anterior de s3
-			mv s7, s3
-			
-			# Vagão atual = (vagão atual)->próximo.
-			lw s3, 8(s3)
-			
-			# Continua no loop até encontrar o fim do trem.
-			j loop_insercao
-			
-add_fim_2:		
-		# ------ Organização de ponteiros
-			
-			# Carrego um novo "ponteiro nulo" (endereço 0) nos últimos 4 bytes do novo vagão
-			sw zero, 8(a0)
 
-			# Salvo o endereço do novo vagão no offset 8 do último vagão
-			sw a0, 8(s7)
+	loop_insercao:
+			# -------- Condição de parada
+				# Se o valor de s3 é nulo, s7 está atualmente no último vagão.
+				beq s3, zero, add_fim_2
+				
+				# s7 = auxiliador que guarda a posição anterior de s3
+				mv s7, s3
+				
+				# Vagão atual = (vagão atual)->próximo.
+				lw s3, 8(s3)
+				
+				# Continua no loop até encontrar o fim do trem.
+				j loop_insercao
 			
-			# Incremento o número de vagões
-			addi s1, s1, 1
+	add_fim_2:		
+			# ------ Organização de ponteiros
+				
+				# Carrego um novo "ponteiro nulo" (endereço 0) nos últimos 4 bytes do novo vagão
+				sw zero, 8(a0)
 
-			j interface
+				# Salvo o endereço do novo vagão no offset 8 do último vagão
+				sw a0, 8(s7)
+				
+				# Incremento o número de vagões
+				addi s1, s1, 1
+
+				j interface
 
 # ----- Fim da Adição no Fim ------ #
 
@@ -679,6 +684,7 @@ buscar:		#-------- Recebendo o ID
 		# ----- Resposta no caso de existir vagão com aquele ID 
 		
 	print_nao_existe:
+
 			la a0, txt_nao_existe_busca
 			ecall
 			
