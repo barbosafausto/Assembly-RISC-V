@@ -49,6 +49,7 @@ txt_fim_rem: 		.asciz "\nVagão removido com sucesso.\n"
 
 # Mensagens que compõem a função 4: Listar trem	
 txt_inicio: 		.asciz "\n--- COMPOSIÇÃO DO TREM ---\n"
+txt_vagao:		.asciz "Vagão "
 txt_id:     		.asciz " -> [ID: "
 txt_tipo:   		.asciz " | Tipo: "
 txt_fecha:  		.asciz "]\n"
@@ -89,7 +90,7 @@ main:
 			# s3 -> iterador, usado em loops, percorre o trem desde a locomotiva até o último vagão
 			# s4 -> guarda o ID do vagão novo/atual
 			# s5 -> guarda o Tipo do vagão novo/atual
-			# s7 -> indica o endereço do vagão anterior ao indicado pelo iterador (usado na função de remover)
+			# s7 -> indica o endereço do vagão anterior ao indicado pelo iterador (usado na função de remover e inserção no fim)
 
 			
 			# --- DEV NOTE
@@ -396,7 +397,7 @@ add_ini:
 			jal get_type
 			mv s5, a1
 
-		# ------ Alocação do novo vagão (12 bytes)
+		# ----- Alocação do novo vagão (12 bytes)
 
 			addi a7, zero, 9
 			addi a0, zero, 12
@@ -419,6 +420,7 @@ add_ini:
 
 			# Salvo o endereço do novo vagão no offset 8 da locomotiva
 			sw a0, 8(s0)
+			
 
 			# Incremento o número de vagões
 			addi s1, s1, 1 
@@ -431,7 +433,54 @@ add_ini:
 
 # ----- Adicão no fim --------- #
 
-add_fim:	j interface
+add_fim:	
+		# ----- Recebe valores do usuário
+			jal get_ID
+			mv s4, a1
+			jal get_type
+			mv s5, a1
+
+		# ----- Alocação do novo vagão (12 bytes)
+
+			addi a7, zero, 9
+			addi a0, zero, 12
+			ecall
+
+			
+		# ----- Preenchimento dos valores do novo vagão
+		
+			sw s4, 0(a0)	
+			sw s5, 4(a0)
+	
+			# s3 = ponteiro (iterador) que vai percorrer o trem, começando na cabeça.
+			mv s3, s0
+loop_insercao:
+		# -------- Condição de parada
+			# Se o valor de s3 é nulo, s7 está atualmente no último vagão.
+			beq s3, zero, add_fim_2
+			
+			# s7 = auxiliador que guarda a posição anterior de s3
+			mv s7, s3
+			
+			# Vagão atual = (vagão atual)->próximo.
+			lw s3, 8(s3)
+			
+			# Continua no loop até encontrar o fim do trem.
+			j loop_insercao
+			
+add_fim_2:		
+		# ------ Organização de ponteiros
+			
+			# Carrego um novo "ponteiro nulo" (endereço 0) nos últimos 4 bytes do novo vagão
+			sw zero, 8(a0)
+
+			# Salvo o endereço do novo vagão no offset 8 do último vagão
+			sw a0, 8(s7)
+			
+			# Incremento o número de vagões
+			addi s1, s1, 1
+
+			j interface
 
 # ----- Fim da Adição no Fim ------ #
 
@@ -533,8 +582,10 @@ listar:
 
 
 			# s3 = ponteiro (iterador) que vai percorrer o trem, começando na cabeça.
-			mv s3, s0			
-
+			mv s3, s0	
+			
+			# Inicializa o registrador s8 como 1, que servirá como contador das posições dos vagões
+			addi s8, zero, 1		
 
 	# ---- Percorrendo trem
 	loop_listar:
@@ -548,6 +599,20 @@ listar:
 			# Damos load do valor de offset(s3) em s4 e s5.
 			lw s4, 0(s3)			# s4 = ID, offset 0
 			lw s5, 4(s3)			# s5 = tipo, offset 4
+			
+			# -------- Impressão de Texto
+			# Chamada e impressão do texto: "Vagão "
+			la a0, txt_vagao
+			addi a7, zero, 4
+			ecall
+			
+			# Chamada e impressão da posição do vagão
+			add a0, zero, s8
+			addi a7, zero, 1
+			ecall
+			
+			# Itera o valor de s8
+			addi s8, s8, 1
 			
 			# -------- Impressão de Texto
 			# Chamada e impressão do texto: " -> [ID : "
@@ -632,9 +697,9 @@ buscar:		#-------- Recebendo o ID
 # ----- Saída do Jogo ----- #
 exit:	
 
-		la a0, seeya			# printa mensagem de despedida 
+		la a0, seeya			# Carrega mensagem de despedida 
 
-		addi a7, zero, 4		
+		addi a7, zero, 4		# Imprime a mensagem de despedida
 		ecall
 		
 		addi a7, zero, 10		# Encerra o programa na próxima chamada do sistema
