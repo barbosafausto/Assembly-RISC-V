@@ -35,9 +35,10 @@ mostrarMenu:
 
 # Mensagens essenciais para recebimento de ID e Tipo
 txt_ID:					.asciz "\nDigite o ID Único do novo vagão: "
-txt_Tipo:				.asciz "\nDigite o Tipo do novo vagão: "
 txt_ID_error:  			.asciz "\nErro! Outro vagão possui o ID informado. Tente novamente.\n"
 txt_ID_negativo:		.asciz "\nErro! O ID deve ser um número positivo. Tente novamente.\n"
+
+txt_Tipo:				.asciz "\nDigite o Tipo do novo vagão: "
 txt_type_error: 		.asciz "\nErro! Você não pode adicionar locomotivas. Tente novamente.\n"
 txt_type_negativo:		.asciz "\nErro! O Tipo deve ser um número positivo. Tente novamente.\n"
 
@@ -68,8 +69,9 @@ seeya:					.asciz "Obrigado por jogar!\n"
 	# ------------ SEGMENTO DE CÓDIGO --------- #
 
 		.text	
-		
-		.align 2 # Todas as instruções são de 32 bits									
+
+		# Todas as instruções são de 32 bits									
+		.align 2 
 		.globl main
 	
 main:	
@@ -80,8 +82,7 @@ main:
 			# --- Registradores gerais
 
 			# s0 -> Guarda ponteiro da locomotiva. Não podemos mudar o seu valor.
-			# s1 -> Quantidade de vagões do trem (talvez seja inútil; se for o caso, vamos removê-lo no fim do projeto)
-			# s2 -> Guarda entrada do usuário no menu de ações
+			# s1 -> Guarda entrada do usuário no menu de ações
 
 
 			# --- Registradores usados as funções 1 (adicionar vagão no início), 4 (listagem do trem) e <outra função possível>.
@@ -136,8 +137,7 @@ main:
 
 		# --------- Preparo para o Jogo
 
-			addi s1, zero, 1	# O jogo começa com 1 vagão (locomativa)
-			addi s2, zero, 0	# Entrada para o menu começa zerada
+			addi s1, zero, 0	# Entrada para o menu começa zerada
 			
 		# --------- Início do Jogo
 			
@@ -164,37 +164,37 @@ interface:
 		# ------ Recebimento do input do usuário
 get_input:
 			
-			# Lê inteiro e coloca o valor no registrador s2
+			# Lê inteiro e coloca o valor no registrador s1
 			addi a7, zero, 5		
 			ecall				
-			mv s2, a0			
+			mv s1, a0			
 
 		# ------ Decisão do que fazer com base no input
 branch_from_input:			
 
 			# 1 - Adicionar no início
 			addi t0, zero, 1			
-			beq s2, t0, add_ini		# Se s2 == 1, pule para add_ini
+			beq s1, t0, add_ini		# Se s1 == 1, pule para add_ini
 			
 			# 2 - Adicionar no final
 			addi t0, zero, 2			
-			beq s2, t0, add_fim		# Se s2 == 2, pule para add_fim
+			beq s1, t0, add_fim		# Se s1 == 2, pule para add_fim
 			
 			# 3 - Remover por ID
 			addi t0, zero, 3			
-			beq s2, t0, rem_ID		# Se s2 == 3, pule para rem_ID
+			beq s1, t0, rem_ID		# Se s1 == 3, pule para rem_ID
 			
 			# 4 - Listar Trem
 			addi t0, zero, 4			
-			beq s2, t0, listar		# Se s2 == 4, pule para listar
+			beq s1, t0, listar		# Se s1 == 4, pule para listar
 			
 			# 5 - Buscar Vagão
 			addi t0, zero, 5			
-			beq s2, t0, buscar		# Se s2 == 5, pule para buscar
+			beq s1, t0, buscar		# Se s1 == 5, pule para buscar
 			
 			# 6 - Sair
 			addi t0, zero, 6			
-			beq s2, t0, exit		# Se s2 == 6 [...]
+			beq s1, t0, exit		# Se s1 == 6 [...]
 			
 			# Se a entrada for qualquer outro número, faz o menu aparecer de novo e recebe a entrada de novo
 			j interface
@@ -417,10 +417,6 @@ add_ini:
 			# Salvo o endereço do novo vagão no offset 8 da locomotiva
 			sw a0, 8(s0)
 			
-
-			# Incremento o número de vagões
-			addi s1, s1, 1 
-			
 			j interface
 
 
@@ -450,7 +446,7 @@ add_fim:
 	
 			# s3 = ponteiro (iterador) que vai percorrer o trem, começando na cabeça.
 			mv s3, s0
-
+			
 	loop_insercao:
 			# -------- Condição de parada
 				# Se o valor de s3 é nulo, s7 está atualmente no último vagão.
@@ -474,9 +470,6 @@ add_fim:
 				# Salvo o endereço do novo vagão no offset 8 do último vagão
 				sw a0, 8(s7)
 				
-				# Incremento o número de vagões
-				addi s1, s1, 1
-
 				j interface
 
 # ----- Fim da Adição no Fim ------ #
