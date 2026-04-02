@@ -351,7 +351,7 @@ get_type:
 
 		# ---- Verificação do tipo
 
-			# Se o tipo informado for igual a 1, então temos um erro
+			# Se o tipo informado for igual a 1, então temos um erro, pois tipo = 1 é a locomotiva.
 			addi t0, zero, 1
 			beq t1, t0, type_error
 
