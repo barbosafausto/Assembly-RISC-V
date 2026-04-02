@@ -90,6 +90,7 @@ main:
 			# s3 -> iterador, usado em loops, percorre o trem desde a locomotiva até o último vagão
 			# s4 -> guarda o ID do vagão novo/atual
 			# s5 -> guarda o Tipo do vagão novo/atual
+			# s6 -> ?
 			# s7 -> indica o endereço do vagão anterior ao indicado pelo iterador (usado na função de remover e inserção no fim)
 
 			
