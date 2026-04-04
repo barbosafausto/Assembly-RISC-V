@@ -34,13 +34,16 @@ mostrarMenu:
 
 
 # Mensagens essenciais para recebimento de ID e Tipo
-txt_ID:					.asciz "\nDigite o ID Único do novo vagão: "
+txt_ID:					.asciz "\nDigite o ID Único do novo vagão (lembrando que ID = 0 está reservado!): "
+					
 txt_ID_error:  			.asciz "\nErro! Outro vagão possui o ID informado. Tente novamente.\n"
 txt_ID_negativo:		.asciz "\nErro! O ID deve ser um número positivo. Tente novamente.\n"
 
-txt_Tipo:				.asciz "\nDigite o Tipo do novo vagão: "
+txt_Tipo:				.ascii "\nDigite o Tipo do novo vagão (2 = carga, 3 = passageiro e 4 = combustível):\n"
+					.asciz "(Lembrando que pode existir apenas uma locomotiva!)\n"
 txt_type_error: 		.asciz "\nErro! Você não pode adicionar locomotivas. Tente novamente.\n"
 txt_type_negativo:		.asciz "\nErro! O Tipo deve ser um número positivo. Tente novamente.\n"
+txt_type_limitExceed:		.asciz "\nErro! Tipo inexistente de locomotiva.\n"
 
 # Mensagens que compõe a função 3: Remover vagão 
 txt_ID_rem:				.asciz "\nDigite o ID do vagão que deseja remover: "
@@ -350,18 +353,26 @@ get_type:
 			mv t1, a0
 
 		# ---- Verificação do tipo
-
+			
+			# Por logística de implementação, tipo = 0 não pode existir.
+			beqz t1, type_limitExceed
+			
 			# Se o tipo informado for igual a 1, então temos um erro, pois tipo = 1 é a locomotiva.
 			addi t0, zero, 1
 			beq t1, t0, type_error
-
+			
+			# Se o tipo informado for maio que 4, então temos um erro, por existem no máximo 4 tipos.
+			addi t0, zero, 4
+			bgt t1, t0, type_limitExceed 
+			
+			
 		# ---- Saindo com tipo válido
 			mv a1, t1
 		
 			# Se não temos erros, voltamos para quem chamou a função
 			jr ra
 
-		# ----  Imprimindo que tipo é inválido e voltando ao input do ID 
+		# ----  Imprimindo que tipo é inválido e voltando ao input do tipo
 	type_error:
 
 				addi a7, zero, 4
@@ -369,8 +380,16 @@ get_type:
 				ecall
 
 				j get_type
+				
+		# ----  Imprimindo que é tipo inválido e voltando ao input do tipo
+	type_limitExceed:
+				addi a7, zero, 4
+				la a0, txt_type_limitExceed
+				ecall
+				
+				j get_type
 			
-		# ---- Imprimindo que type deve ser positivo e voltando ao input do ID
+		# ---- Imprimindo que type deve ser positivo e voltando ao input do tipo
 	type_negativo:
 				
 				addi a7, zero, 4
