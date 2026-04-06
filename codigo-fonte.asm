@@ -9,119 +9,117 @@
 						.align 0												
 			
 # Mensagem de boas vindas 
-hola:   				.asciz "Tchoo Tchoo! T√° na hora de montar uns trem b√£o por a√≠ >:D\n\n"				
+txt_hello:   			.asciz "Tchoo Tchoo! T· na hora de montar uns trem b„o por aÌ >:D\n\n"				
 
-# Instru√ß√µes de como jogar [para o usu√°rio]
-instrucoes: 
-						.ascii "Como jogar? Simples: o seu objetivo √© gerenciar um trem de acordo com as 6 fun√ß√µes dispostas no menu de a√ß√µes.\n\n"
-						.ascii "Regras: \n"
-						.ascii "1. S√≥ √© poss√≠vel adicionar vag√µes no in√≠cio do trem (ao lado da locomotiva) e no fim.\n"
-						.ascii "2. Para remover ou buscar qualquer vag√£o (primeiro vag√£o) √© necess√°rio fornecer o ID do vag√£o a ser removido.\n"
-						.ascii "3. √â importante esclarecer que cada vag√£o √© representado por um ID (c√≥digo √∫nico) e um c√≥digo de tipo (1 = locomotiva, 2 = carga, etc).\n"
-						.asciz "4. A locomotiva possui ID = 0 e tipo = 1. N√£o √© poss√≠vel mexer na locomotiva existente ou inserir outras locomotivas no trem.\n\n"
+# InstruÁıes de como jogar [para o usu·rio]
+txt_instructions: 
+				.ascii "Como jogar? Simples: o seu objetivo È gerenciar um trem de acordo com as 6 funÁıes dispostas no menu de aÁıes.\n\n"
+				.ascii "Regras: \n"
+				.ascii "1. SÛ È possÌvel adicionar vagıes no inÌcio do trem (ao lado da locomotiva) e no fim.\n"
+				.ascii "2. Para remover ou buscar qualquer vag„o (primeiro vag„o) È necess·rio fornecer o ID do vag„o a ser removido.\n"
+				.ascii "3. … importante esclarecer que cada vag„o È representado por um ID (cÛdigo ˙nico) e um cÛdigo de tipo (1 = locomotiva, 2 = carga, etc).\n"
+				.asciz "4. A locomotiva possui ID = 0 e tipo = 1. N„o È possÌvel mexer na locomotiva existente ou inserir outras locomotivas no trem.\n\n"
 
-# Menu de a√ß√µes
-# No final de cada fun√ß√£o (exceto sair) h√° um jump que volta para o Menu
-mostrarMenu:
-						.ascii "\n"
-						.ascii "Menu de a√ß√µes:\n"
-						.ascii "1 - Adicionar vag√£o no in√≠cio.\n"
-						.ascii "2 - Adicionar vag√£o no final.\n"
-						.ascii "3 - Remover vag√£o por ID.\n"
-						.ascii "4 - Listar trem.\n"
-						.ascii "5 - Buscar vag√£o.\n"
-						.asciz "6 - Sair.\n\n"
+# Menu de aÁıes
+# No final de cada funÁ„o (exceto sair) h· um jump que volta para o Menu
+txt_menu:
+				.ascii "\n"
+				.ascii "Menu de aÁıes:\n"
+				.ascii "1 - Adicionar vag„o no inÌcio.\n"
+				.ascii "2 - Adicionar vag„o no final.\n"
+				.ascii "3 - Remover vag„o por ID.\n"
+				.ascii "4 - Listar trem.\n"
+				.ascii "5 - Buscar vag„o.\n"
+				.asciz "6 - Sair.\n\n"
 
 
 # Mensagens essenciais para recebimento de ID e Tipo
-txt_ID:					.asciz "\nDigite o ID √önico do novo vag√£o (lembrando que ID = 0 est√° reservado!): "
+txt_ID:				.asciz "\nDigite o ID ⁄nico do novo vag„o (lembrando que ID = 0 est· reservado!): "
 					
-txt_ID_error:  			.asciz "\nErro! Outro vag√£o possui o ID informado. Tente novamente.\n"
-txt_ID_negativo:		.asciz "\nErro! O ID deve ser um n√∫mero positivo. Tente novamente.\n"
+txt_ID_error:  			.asciz "\nErro! Outro vag„o possui o ID informado. Tente novamente.\n"
+txt_ID_negative:		.asciz "\nErro! O ID deve ser um n˙mero positivo. Tente novamente.\n"
 
-txt_Tipo:				.ascii "\nDigite o Tipo do novo vag√£o (2 = carga, 3 = passageiro e 4 = combust√≠vel):\n"
-					.asciz "(Lembrando que pode existir apenas uma locomotiva!)\n"
-txt_type_error: 		.asciz "\nErro! Voc√™ n√£o pode adicionar locomotivas. Tente novamente.\n"
-txt_type_negativo:		.asciz "\nErro! O Tipo deve ser um n√∫mero positivo. Tente novamente.\n"
-txt_type_limitExceed:		.asciz "\nErro! Tipo inexistente de locomotiva.\n"
+txt_type:			.ascii "\nDigite o Tipo do novo vag„o (2 = carga, 3 = passageiro e 4 = combustÌvel):\n"
+				.asciz "(Lembrando que pode existir apenas uma locomotiva!)\n"
+txt_type_error: 		.asciz "\nErro! VocÍ n„o pode adicionar locomotivas. Tente novamente.\n"
+txt_type_limitExceed:		.asciz "\nErro! Tipo inexistente de vag„o.\n"
 
-# Mensagens que comp√µe a fun√ß√£o 3: Remover vag√£o 
-txt_ID_rem:				.asciz "\nDigite o ID do vag√£o que deseja remover: "
-txt_nao_existe_rem:		.asciz "\nEsse vag√£o n√£o pode ser removido, pois n√£o existe no trem.\n"
-txt_locomotiva_rem:		.asciz "\nEsse vag√£o n√£o pode ser removido, pois √© a locomotiva.\n" 
-txt_fim_rem: 			.asciz "\nVag√£o removido com sucesso.\n"
+# Mensagens que compıe a funÁ„o 3: Remover vag„o 
+txt_ID_rem:			.asciz "\nDigite o ID do vag„o que deseja remover: "
+txt_not_exist_rem:		.asciz "\nEsse vag„o n„o pode ser removido, pois n„o existe no trem.\n"
+txt_locomotive_rem:		.asciz "\nEsse vag„o n„o pode ser removido, pois È a locomotiva.\n" 
+txt_end_rem: 			.asciz "\nVag„o removido com sucesso.\n"
 
-# Mensagens que comp√µem a fun√ß√£o 4: Listar trem	
-txt_inicio: 			.asciz "\n--- COMPOSI√á√ÉO DO TREM ---\n"
-txt_vagao:				.asciz "Vag√£o "
-txt_id:     			.asciz " -> [ID: "
-txt_tipo:   			.asciz " | Tipo: "
-txt_fecha:  			.asciz "]\n"
+# Mensagens que compıem a funÁ„o 4: Listar trem	
+txt_begin_list: 			.asciz "\n--- COMPOSI«√O DO TREM ---\n"
+txt_wagon_list:			.asciz "Vag„o "
+txt_id_list:     			.asciz " -> [ID: "
+txt_type_list:   			.asciz " | Tipo: "
+txt_close_list:  			.asciz "]\n"
 
-# Mensagens que comp√µe a fun√ß√£o 5: Buscar vag√£o
-txt_ID_busca:			.asciz "\nDigite o ID do vag√£o que deseja buscar: "
-txt_existe_busca:		.asciz "\nEsse vag√£o existe.\n"
-txt_nao_existe_busca:	.asciz "\nEsse vag√£o n√£o existe.\n" 
+# Mensagens que compıe a funÁ„o 5: Buscar vag„o
+txt_ID_search:			.asciz "\nDigite o ID do vag„o que deseja buscar: "
+txt_exist_search:		.asciz "\nEsse vag„o existe.\n"
+txt_not_exist_search:		.asciz "\nEsse vag„o n„o existe.\n" 
 
-# Mensagem que ser√° mostrada quando o jogador fechar o jogo.
-seeya:					.asciz "Obrigado por jogar!\n"														
+# Mensagem que ser· mostrada quando o jogador fechar o jogo.
+txt_bye:					.asciz "Obrigado por jogar!\n"														
 
 
 
 	
-	# ------------ SEGMENTO DE C√ìDIGO --------- #
+	# ------------ SEGMENTO DE C”DIGO --------- #
 
 		.text	
 
-		# Todas as instru√ß√µes s√£o de 32 bits									
+		# Todas as instruÁıes s„o de 32 bits									
 		.align 2 
 		.globl main
 	
 main:	
 			
-			# ---------- Dicion√°rio de registradores e vari√°veis
+			# ---------- Dicion·rio de registradores e vari·veis
 
 			
 			# --- Registradores gerais
 
-			# s0 -> Guarda ponteiro da locomotiva. N√£o podemos mudar o seu valor.
-			# s1 -> Guarda entrada do usu√°rio no menu de a√ß√µes
+			# s0 -> Guarda ponteiro da locomotiva. N„o podemos mudar o seu valor.
+			# s1 -> Guarda entrada do usu·rio no menu de aÁıes
 
 
-			# --- Registradores usados as fun√ß√µes 1 (adicionar vag√£o no in√≠cio), 4 (listagem do trem) e <outra fun√ß√£o poss√≠vel>.
+			# --- Registradores usados nas funÁıes.
 			
-			# s3 -> iterador, usado em loops, percorre o trem desde a locomotiva at√© o √∫ltimo vag√£o
-			# s4 -> guarda o ID do vag√£o novo/atual
-			# s5 -> guarda o Tipo do vag√£o novo/atual
-			# s6 -> ?
-			# s7 -> indica o endere√ßo do vag√£o anterior ao indicado pelo iterador (usado na fun√ß√£o de remover e inser√ß√£o no fim)
+			# s3 -> iterador, usado em loops, percorre o trem desde a locomotiva atÈ o ˙ltimo vag„o
+			# s4 -> guarda o ID do vag„o novo/atual
+			# s5 -> guarda o Tipo do vag„o novo/atual
+			# s7 -> indica o endereÁo do vag„o anterior ao indicado pelo iterador (usado na funÁ„o de remover e inserÁ„o no fim)
 
 			
 			# --- IDs e Tipos
 
-			# ID da cabe√ßa = 0, Tipo da Cabe√ßa = 1 (locomativa)
-			# Os demais vag√µes ter√£o ID e Tipo informados pelo usu√°rio.
-			# Exemplos de tipos: 1 = locomotiva, 2 = carga, 3 = passageiro, 4 = combust√≠vel, etc.
+			# ID da cabeÁa = 0, Tipo da CabeÁa = 1 (locomativa)
+			# Os demais vagıes ter„o ID e Tipo informados pelo usu·rio.
+			# Exemplos de tipos: 1 = locomotiva, 2 = carga, 3 = passageiro, 4 = combustÌvel, etc.
 
 
 
 
-		# ---------- Aloca√ß√£o da Lomocomativa (vag√£o cabe√ßa)
+		# ---------- AlocaÁ„o da Lomocomativa (vag„o cabeÁa)
 	
-			# Alocar mem√≥ria para a cabe√ßa
-			# Servi√ßo 9 -> aloca√ß√£o de mem√≥ria heap
+			# Alocar memÛria para a cabeÁa
+			# ServiÁo 9 -> alocaÁ„o de memÛria heap
 			addi a7, zero, 9	
 
-			# Instru√ß√£o de quantidade: 12 bytes de espa√ßo (4 ID, 4 TIPO, 4 PONTEIRO)
+			# InstruÁ„o de quantidade: 12 bytes de espaÁo (4 ID, 4 TIPO, 4 PONTEIRO)
 			addi a0, zero, 12	
 
-			# Chamada de sistema para o endere√ßo ser alocado e guardado no registrador a0
+			# Chamada de sistema para o endereÁo ser alocado e guardado no registrador a0
 			ecall			
 
-			# Agora, o endere√ßo da cabe√ßa est√° guardado em s0. Isso n√£o pode ser mudado.
+			# Agora, o endereÁo da cabeÁa est· guardado em s0. Isso n„o pode ser mudado.
 			mv s0, a0		
 
-		# ---------- Preenchimento dos dados no espa√ßo alocado
+		# ---------- Preenchimento dos dados no espaÁo alocado
 			
 			# ID da locomotiva = 0
 			addi t1, zero, 0 		
@@ -135,54 +133,52 @@ main:
 			# Guarda o valor de t2 (Tipo) no offset 4 
 			sw t2, 4(s0)		
 
-			# Guarda o valor do ponteiro no offset 8. Como s√≥ tem a locomotiva, o ponteiro √© NULL (zero)
+			# Guarda o valor do ponteiro no offset 8. Como sÛ tem a locomotiva, o ponteiro È NULL (zero)
 			# Sistema de 32 bits -> 4 bytes. Por isso, o valor do ponteiro tem 4 bytes reservados.
 			sw zero, 8(s0)		
 
 		# --------- Preparo para o Jogo
 
-			addi s1, zero, 0	# Entrada para o menu come√ßa zerada
+			addi s1, zero, 0	# Entrada para o menu comeÁa zerada
 			
-		# --------- In√≠cio do Jogo
+		# --------- InÌcio do Jogo
 			
-			# Muda o valor de a0 para o endere√ßo do primeiro byte da string de r√≥tulo "hola"
-			la a0, hola			
+			# Muda o valor de a0 para o endereÁo do primeiro byte da string de rÛtulo "txt_hello"
+			la a0, txt_hello			
 
-			# Imprime a string encontrada em a0 na pr√≥xima chamada do sistema, que √© a mensagem de boas vindas
+			# Imprime a string encontrada em a0 na prÛxima chamada do sistema, que È a mensagem de boas vindas
 			addi a7, zero, 4		
 			ecall
 
-			# Aqui, o processo √© an√°logo, por√©m com a string "instrucoes"
-			la a0, instrucoes		
+			# Aqui, o processo È an·logo, porÈm com a string "txt_instructions"
+			la a0, txt_instructions		
 			addi a7, zero, 4
 			ecall
 
 
-		# ------ Apresenta√ß√£o das instru√ß√µes do jogo
+		# ------ ApresentaÁ„o das instruÁıes do jogo
 interface:	
-			# Printa o menu de a√ß√µes	
-			la a0, mostrarMenu	
+			# Printa o menu de aÁıes	
+			la a0, txt_menu	
 			addi a7, zero, 4
 			ecall
 
-		# ------ Recebimento do input do usu√°rio
-get_input:
+		# ------ Recebimento do input do usu·rio
 			
-			# L√™ inteiro e coloca o valor no registrador s1
+			# LÍ inteiro e coloca o valor no registrador s1
 			addi a7, zero, 5		
 			ecall				
 			mv s1, a0			
 
-		# ------ Decis√£o do que fazer com base no input
-branch_from_input:			
+		# ------ Decis„o do que fazer com base no input
 
-			# 1 - Adicionar no in√≠cio
+			# 1 - Adicionar no inÌcio
 			addi t0, zero, 1			
 			beq s1, t0, add_ini		# Se s1 == 1, pule para add_ini
 			
 			# 2 - Adicionar no final
 			addi t0, zero, 2			
-			beq s1, t0, add_fim		# Se s1 == 2, pule para add_fim
+			beq s1, t0, add_end		# Se s1 == 2, pule para add_end
 			
 			# 3 - Remover por ID
 			addi t0, zero, 3			
@@ -190,111 +186,112 @@ branch_from_input:
 			
 			# 4 - Listar Trem
 			addi t0, zero, 4			
-			beq s1, t0, listar		# Se s1 == 4, pule para listar
+			beq s1, t0, list		# Se s1 == 4, pule para listar
 			
-			# 5 - Buscar Vag√£o
+			# 5 - Buscar Vag„o
 			addi t0, zero, 5			
-			beq s1, t0, buscar		# Se s1 == 5, pule para buscar
+			beq s1, t0, search		# Se s1 == 5, pule para buscar
 			
 			# 6 - Sair
 			addi t0, zero, 6			
 			beq s1, t0, exit		# Se s1 == 6 [...]
 			
-			# Se a entrada for qualquer outro n√∫mero, faz o menu aparecer de novo e recebe a entrada de novo
+			# Se a entrada for qualquer outro n˙mero, faz o menu aparecer de novo e recebe a entrada de novo
 			j interface
 
 
-# ----------- FUN√á√ïES AUXILIARES -------------- #		
+# ----------- FUN«’ES AUXILIARES -------------- #		
 
-	# ------ Fun√ß√£o: verifica se um vag√£o de determinado ID est√° no trem
-		# Par√¢metros: a0 = ID a ser buscado
-		# Retorno: a1 = 0, se n√£o encontrado; a0 = 1, se encontrado
+	# ------ FunÁ„o: verifica se um vag„o de determinado ID est· no trem
+		# Par‚metros: a0 = ID a ser buscado
+		# Retorno: a1 = 0, se n„o encontrado; a1 = 1, se encontrado
 		# Usa os registradores:
 			# s3 - Iterador sobre o trem
-			# t0 - ID do vag√£o da itera√ß√£o atual 
+			# t0 - ID do vag„o da iteraÁ„o atual 
 		
-		# ---- Inicializa√ß√µes
-busca_ID:		
+		# ---- InicializaÁıes
+search_ID:		
+			# N„o iremos empilhar, pois n„o h· chamadas internas para outras funÁıes
 			
-			# Passando o endere√ßo da locomotiva para s3, pois iremos iterar sobre o trem
+			# Passando o endereÁo da locomotiva para s3, pois iremos iterar sobre o trem
 			add s3, zero, s0
 		
 		# ---- Buscando ID
-	loop_busca_ID:	
+	loop_search_ID:	
 	
-				# Pegando ID do vag√£o
+				# Pegando ID do vag„o
 				lw t0, 0(s3)
 				
-				# Comparando o ID do vag√£o com o par√¢metro passado
-				beq t0, a0, existe_busca_ID
+				# Comparando o ID do vag„o com o par‚metro passado
+				beq t0, a0, exist_search_ID
 				
-				# Caso n√£o seja o ID desejado, passa-se para o pr√≥ximo vag√£o -> s3 recebe para onde o ponteiro do vag√£o atual
+				# Caso n„o seja o ID desejado, passa-se para o prÛximo vag„o -> s3 recebe para onde o ponteiro do vag„o atual
 				lw s3, 8(s3)
 				
 				# Verificando se o trem acabou
-				bne s3, zero, loop_busca_ID
+				bne s3, zero, loop_search_ID
 				
-			# ---- Retorno no caso em que n√£o existe vag√£o com aquele ID
+			# ---- Retorno no caso em que n„o existe vag„o com aquele ID
 				addi a1, zero, 0
 				
-				# Voltando a instru√ß√£o seguinte em rela√ß√£o a onde ocorreu a chamada
+				# Voltando a instruÁ„o seguinte em relaÁ„o a onde ocorreu a chamada
 				jr ra 
 	
-		# ---- Retorno no caso em que existe vag√£o com aquele ID
-	existe_busca_ID:
+		# ---- Retorno no caso em que existe vag„o com aquele ID
+	exist_search_ID:
 				
 				addi a1, zero, 1
 				
-				# Voltando a instru√ß√£o seguinte em rela√ß√£o a onde ocorreu a chamada
+				# Voltando a instruÁ„o seguinte em relaÁ„o a onde ocorreu a chamada
 				jr ra
-		# ----- Fim da fun√ß√£o busca_ID	
+	# ----- Fim da funÁ„o search_ID	
 
 
 
-	# ----- Fun√ß√£o: l√™ o ID e o valida
-		# Par√¢metros: nenhum (A leitura do ID √© feita dentro da fun√ß√£o)
-		# Retorno: a1 = ID v√°lido
+	# ----- FunÁ„o: lÍ o ID e o valida
+		# Par‚metros: nenhum (A leitura do ID È feita dentro da funÁ„o)
+		# Retorno: a1 = ID v·lido
 		# Usa os registradores:
 			# t1 - ID lido
-			# a7 - Op√ß√£o de ecall
-			# a0 - Endere√ßo de string e retorno de ecall
+			# a7 - OpÁ„o de ecall
+			# a0 - EndereÁo de string e retorno de ecall
 			# s3, t0 - Busca_ID
 		
 get_ID:
-		# ---- Empilhando (dentro dessa fun√ß√£o, outra ser√° chamada)
-			# Como iremos empilhar s√≥ ra, que √© um endere√ßo (4 bytes), iremos mover o topo 4 posi√ß√µes na mem√≥ria
+		# ---- Empilhando (dentro dessa funÁ„o, outra ser· chamada)
+			# Como iremos empilhar sÛ ra, que È um endereÁo (4 bytes), iremos mover o topo 4 posiÁıes na memÛria (pilha cresce ao contr·rio)
 			addi sp, sp, -4
-			# Armazenando ra na mem√≥ria
+			# Armazenando ra na memÛria
 			sw ra, 0(sp)
 			
 			
-		# ---- Inicializa√ß√µes e lendo ID
+		# ---- InicializaÁıes e lendo ID
 		
-	ini_get_ID:	# Impress√£o do texto que pede ID
+	ini_get_ID:		# Impress„o do texto que pede ID
 				addi a7, zero, 4
 				la a0, txt_ID
 				ecall
 
-				# Leitura do ID do vag√£o
+				# Leitura do ID do vag„o
 				addi a7, zero, 5
 				ecall
 				
-				# Se o ID for negativo, n√£o √© v√°lido
-				blt a0, zero, ID_negativo		
+				# Se o ID for negativo, n„o È v·lido
+				blt a0, zero, ID_negative		
 				
 				# Salvando valor lido
 				mv t1, a0
 			
 			# ---- Buscando ID
-				# Par√¢metro j√° est√° em a0
-				jal busca_ID
+				# Par‚metro j· est· em a0
+				jal search_ID
 			
 			# ---- Verificando retorno
 				
-				# Se a1 == 0, n√£o existe vag√£o com aquele ID, ent√£o √© v√°lido
-				beq a1, zero, sair_get_ID 					
+				# Se a1 == 0, n„o existe vag„o com aquele ID, ent„o È v·lido
+				beq a1, zero, exit_get_ID 					
 		
-			# ----- Imprimindo que ID √© inv√°lido e voltando ao input do ID
+			# ----- Imprimindo que ID È inv·lido e voltando ao input do ID
 
 				addi a7, zero, 4
 				la a0, txt_ID_error
@@ -303,76 +300,73 @@ get_ID:
 				j ini_get_ID
 				
 			# ---- Imprimindo que ID deve ser positivo e voltando ao input do ID
-	ID_negativo:
+	ID_negative:
 
-				la a0, txt_ID_negativo
+				la a0, txt_ID_negative
 				addi a7, zero, 4
 				ecall
 				
 				j ini_get_ID
 			
-		# ---- Saindo com ID v√°lido
-	sair_get_ID:	
+		# ---- Saindo com ID v·lido
+	exit_get_ID:	
 
-				# Colocando resultado no registrador de retorno da fun√ß√£o (a1)
+				# Colocando resultado no registrador de retorno da funÁ„o (a1)
 				mv a1, t1
 				
-				# Desempilhando endere√ßo de retorno
+				# Desempilhando endereÁo de retorno
 				lw ra, 0(sp)
 				addi sp, sp, 4
 				
 				jr ra
 
-	# ------ Fim da fun√ß√£o get_ID
+	# ------ Fim da funÁ„o get_ID
 
 		
-	# ------ Fun√ß√£o: l√™ o tipo e o valida
-		# Par√¢metros: nenhum (o valor √© lido dentro da fun√ß√£o)
-		# Retorno: a1 = Tipo v√°lido
+	# ------ FunÁ„o: lÍ o tipo e o valida
+		# Par‚metros: nenhum (o valor È lido dentro da funÁ„o)
+		# Retorno: a1 = Tipo v·lido
 		# Usa os registradores t1, a0, a7 e t0
-			# t0 - Valor 1 para compara√ß√£o 
+			# t0 - Valor 1 para comparaÁ„o 
 			# t1 - Tipo lido
-			# a7 - Op√ß√£o de ecall
-			# a0 - Endere√ßo de string e retorno de ecall
+			# a7 - OpÁ„o de ecall
+			# a0 - EndereÁo de string e retorno de ecall
 				
-		# ---- Inicializa√ß√µes e lendo tipo
+		# ---- InicializaÁıes e lendo tipo
 get_type:
 			# Texto que pede o tipo
 			addi a7, zero, 4
-			la a0, txt_Tipo
+			la a0, txt_type
 			ecall
 
 			# Leitura do tipo
 			addi a7, zero, 5
 			ecall
 			
-			# Se o tipo √© negativo, n√£o √© v√°lido
-			blt a0, zero, type_negativo
-
 			# Guarda o tipo em t1
 			mv t1, a0
 
-		# ---- Verifica√ß√£o do tipo
+		# ---- VerificaÁ„o do tipo
 			
-			# Por log√≠stica de implementa√ß√£o, tipo = 0 n√£o pode existir.
-			beqz t1, type_limitExceed
+			# Por logÌstica de implementaÁ„o, tipo = 0 n„o pode existir.
+			ble t1, zero, type_limitExceed
 			
-			# Se o tipo informado for igual a 1, ent√£o temos um erro, pois tipo = 1 √© a locomotiva.
+			# Se o tipo informado for igual a 1, ent„o temos um erro, pois tipo = 1 È a locomotiva.
 			addi t0, zero, 1
 			beq t1, t0, type_error
 			
-			# Se o tipo informado for maio que 4, ent√£o temos um erro, por existem no m√°ximo 4 tipos.
+			# Se o tipo informado for maior que 4, ent„o temos um erro, por existem no m·ximo 4 tipos.
 			addi t0, zero, 4
 			bgt t1, t0, type_limitExceed 
 			
 			
-		# ---- Saindo com tipo v√°lido
+		# ---- Saindo com tipo v·lido
 			mv a1, t1
 		
-			# Se n√£o temos erros, voltamos para quem chamou a fun√ß√£o
+			# Se n„o temos erros, voltamos para quem chamou a funÁ„o
 			jr ra
 
-		# ----  Imprimindo que tipo √© inv√°lido e voltando ao input do tipo
+		# ----  Imprimindo que tipo È inv·lido e voltando ao input do tipo
 	type_error:
 
 				addi a7, zero, 4
@@ -381,7 +375,7 @@ get_type:
 
 				j get_type
 				
-		# ----  Imprimindo que √© tipo inv√°lido e voltando ao input do tipo
+		# ----  Imprimindo que È tipo inv·lido e voltando ao input do tipo
 	type_limitExceed:
 				addi a7, zero, 4
 				la a0, txt_type_limitExceed
@@ -389,193 +383,187 @@ get_type:
 				
 				j get_type
 			
-		# ---- Imprimindo que type deve ser positivo e voltando ao input do tipo
-	type_negativo:
-				
-				addi a7, zero, 4
-				la a0, txt_type_negativo
-				ecall
-				
-				j get_type
-
-	# ----- Fim da fun√ß√£o get_type
+	# ----- Fim da funÁ„o get_type
 
 
-# ------------ FUN√á√ïES DO MENU ------------- #
+# ------------ FUN«’ES DO MENU ------------- #
 
-# ------- Adi√ß√£o no In√≠cio ---------- #
+# ------- AdiÁ„o no InÌcio ---------- #
 
 
-		# ------ Ponto de partida
+		# ------ Lendo ID e Tipo do novo vag„o (validando-os por funÁıes auxiliares)
 add_ini:	
 			jal get_ID
 			mv s4, a1
 			jal get_type
 			mv s5, a1
 
-		# ----- Aloca√ß√£o do novo vag√£o (12 bytes)
+		# ----- AlocaÁ„o do novo vag„o (12 bytes)
 
 			addi a7, zero, 9
 			addi a0, zero, 12
 			ecall
 
 			
-		# ----- Preenchimento dos valores do novo vag√£o
+		# ----- Preenchimento dos valores do novo vag„o
 		
 			sw s4, 0(a0)	
 			sw s5, 4(a0)
 
 
-		# ------ Organiza√ß√£o de ponteiros
+		# ------ OrganizaÁ„o de ponteiros
 			
-			# Carrego o endere√ßo do pr√≥ximo vag√£o em t1
+			# Carrego o endereÁo do vag„o depois da locomotiva em t1
 			lw t1, 8(s0)
 
-			# Salvo esse endere√ßo no offset 8 do novo vag√£o
+			# Salvo esse endereÁo no offset 8 do novo vag„o
 			sw t1, 8(a0)
 
-			# Salvo o endere√ßo do novo vag√£o no offset 8 da locomotiva
+			# Salvo o endereÁo do novo vag„o no offset 8 da locomotiva
 			sw a0, 8(s0)
 			
 			j interface
 
 
-# ----- Fim adi√ß√£o no in√≠cio --------- #
+# ----- Fim adiÁ„o no inÌcio --------- #
 
 
-# ----- Adic√£o no fim --------- #
+# ----- Adic„o no fim --------- #
 
-add_fim:	
-		# ----- Recebe valores do usu√°rio
+add_end:	
+		# ----- Recebe valores do usu·rio
 			jal get_ID
 			mv s4, a1
 			jal get_type
 			mv s5, a1
 
-		# ----- Aloca√ß√£o do novo vag√£o (12 bytes)
+		# ----- AlocaÁ„o do novo vag„o (12 bytes)
 
 			addi a7, zero, 9
 			addi a0, zero, 12
 			ecall
 
 			
-		# ----- Preenchimento dos valores do novo vag√£o
+		# ----- Preenchimento dos valores do novo vag„o
 		
 			sw s4, 0(a0)	
 			sw s5, 4(a0)
 	
-			# s3 = ponteiro (iterador) que vai percorrer o trem, come√ßando na cabe√ßa.
+			# s3 = ponteiro (iterador) que vai percorrer o trem, comeÁando na cabeÁa.
 			mv s3, s0
 			
-	loop_insercao:
-			# -------- Condi√ß√£o de parada
-				# Se o valor de s3 √© nulo, s7 est√° atualmente no √∫ltimo vag√£o.
-				beq s3, zero, add_fim_2
+	loop_add_end:
+			# -------- CondiÁ„o de parada
+				# Se o valor de s3 È nulo, s7 est· atualmente no ˙ltimo vag„o.
+				beq s3, zero, add_end_2
 				
-				# s7 = auxiliador que guarda a posi√ß√£o anterior de s3
+				# s7 = auxiliador que guarda a posiÁ„o anterior de s3
 				mv s7, s3
 				
-				# Vag√£o atual = (vag√£o atual)->pr√≥ximo.
+				# Vag„o atual = (vag„o atual)->prÛximo.
 				lw s3, 8(s3)
 				
-				# Continua no loop at√© encontrar o fim do trem.
-				j loop_insercao
+				# Continua no loop atÈ encontrar o fim do trem.
+				j loop_add_end
 			
-	add_fim_2:		
-			# ------ Organiza√ß√£o de ponteiros
+	add_end_2:		
+			# ------ OrganizaÁ„o de ponteiros
 				
-				# Carrego um novo "ponteiro nulo" (endere√ßo 0) nos √∫ltimos 4 bytes do novo vag√£o
+				# Carrego um novo "ponteiro nulo" (endereÁo 0) nos ˙ltimos 4 bytes do novo vag„o
 				sw zero, 8(a0)
 
-				# Salvo o endere√ßo do novo vag√£o no offset 8 do √∫ltimo vag√£o
+				# Salvo o endereÁo do novo vag„o no offset 8 do ˙ltimo vag„o
 				sw a0, 8(s7)
 				
 				j interface
 
-# ----- Fim da Adi√ß√£o no Fim ------ #
+# ----- Fim da AdiÁ„o no Fim ------ #
 
-# ------ Remo√ß√£o por ID ------ #
+# ------ RemoÁ„o por ID ------ #
 
 	# ---- Lendo ID
 rem_ID:	
-		# Imprimind solicita√ß√£o de ID
+		# Imprimindo solicitaÁ„o de ID
 		la a0, txt_ID_rem			
 		addi a7, zero, 4
 		ecall
 		
-		# Recebendo ID (n√£o precisamos verifica o ID com get_ID, pois j√° iremos fazer um loop para procurar o vag√£o)
+		# Recebendo ID (n„o precisamos verifica o ID com get_ID, pois j· iremos fazer um loop para procurar o vag„o)
 		addi a7, zero, 5
 		ecall
 		
 		# Salvando ID lido
-		mv s6, a0
+		mv s4, a0
 		
-		# Preparando para impress√£o de string de resposta
+		# Preparando para impress„o de string de resposta
 		addi a7, zero, 4
 		
-		# N√£o √© poss√≠vel remover a locomotiva
-		beq s6, zero, locomotiva_error_rem
+		# N„o È possÌvel remover a locomotiva
+		beq s4, zero, locomotive_erro_rem
+	
+		# N„o h· ID negativo no trem
+		blt s4, zero, not_exist_rem
 		
-	# ---- Inicializa√ß√µes para o loop
+	# ---- InicializaÁıes para o loop
 		
-		# O iterador come√ßa no vag√£o ap√≥s a locomotiva
+		# O iterador comeÁa no vag„o apÛs a locomotiva
 		lw s3, 8(s0)
 		
-		# Se s3 = 0, s√≥ h√° um vag√£o no trem (a locomotiva), ent√£o n√£o √© poss√≠vel realizar nenhuma remo√ß√£o  
-		beq s3, zero, nao_existe_rem
+		# Se s3 = 0, sÛ h· um vag„o no trem (a locomotiva), ent„o n„o È possÌvel realizar nenhuma remoÁ„o  
+		beq s3, zero, not_exist_rem
 		
-		# Ponteiro auxiliar que aponta para o vag√£o anterior ao indicado pelo iterador
+		# Ponteiro auxiliar que aponta para o vag„o anterior ao indicado pelo iterador
 		mv s7, s0
 		
-	# ---- Procurando vag√£o
+	# ---- Procurando vag„o
 	 	
 	loop_rem_ID:
-		# Recuperando o ID do vag√£o atual
-		lw s4, 0(s3)
+		# Recuperando o ID do vag„o atual
+		lw t0, 0(s3)
 		
-		# Se ID for o desejado, come√ßa o processo de remo√ß√£o
-		beq s4, s6, removendo
+		# Se ID for o desejado, comeÁa o processo de remoÁ„o
+		beq t0, s4, removing
 		
-		# Sen√£o, tentamos o pr√≥ximo vag√£o
+		# Sen„o, tentamos o prÛximo vag„o
 		mv s7, s3
 		lw s3, 8(s3)
 		
-		# Se o trem acabou, n√£o existe vag√£o com o ID desejado
-		beq s3, zero, nao_existe_rem 
+		# Se o trem acabou, n„o existe vag„o com o ID desejado
+		beq s3, zero, not_exist_rem 
 		
 		j loop_rem_ID
 	
-	# ---- Removendo vag√£o
+	# ---- Removendo vag„o
 		
-	removendo:
-		# Para remover um vag√£o, basta ligar o anterior ao posterior dele, assim ele se "desvincula" do trem
-		#Esse algoritmo trata tanto o caso de remo√ß√£o no meio, quanto de remo√ß√£o no fim, em anterior ir√° come√ßar apontar para NULL (ponteiro = 0) 
-		# Carregando o endere√ßo do posterior ao que ser√° removido
-		lw t0, 8(s3)
+	removing:
+		# Para remover um vag„o, basta ligar o anterior ao posterior dele, assim ele se "desvincula" do trem (n„o precisamos desalocar memÛria)
+		# Esse algoritmo trata tanto o caso de remoÁ„o no meio, quanto de remoÁ„o no fim, em que o anterior ir· comeÁar apontar para NULL (ponteiro = 0) 
+		# Carregando o endereÁo do posterior ao que ser· removido
+		lw t1, 8(s3)
 		
-		# Colocando endere√ßo do posterior no ponteiro do anterior
-		sw t0, 8(s7)
+		# Colocando endereÁo do posterior no ponteiro do anterior
+		sw t1, 8(s7)
 		
-		# Imprimindo que a remo√ß√£o ocorreu corretamente
-		la a0, txt_fim_rem
+		# Imprimindo que a remoÁ„o ocorreu corretamente
+		la a0, txt_end_rem
 		ecall
 		
 		j interface
 		
-	# ---- Resposta no caso do vag√£o n√£o existir
+	# ---- Resposta no caso do vag„o n„o existir
 		
-	nao_existe_rem:
-		# Imprimindo que o vag√£o n√£o foi encontrado para remo√ß√£o
-		la a0, txt_nao_existe_rem
+	not_exist_rem:
+		# Imprimindo que o vag„o n„o foi encontrado para remoÁ„o
+		la a0, txt_not_exist_rem
 		ecall
 		
 		j interface
 		
 	# ---- Resposta no caso de tentativa de remover a locomotiva
 		
-	locomotiva_error_rem:
-		# Imprimindo que o vag√£o escolhido para remo√ß√£o √© a locomotiva
-		la a0, txt_locomotiva_rem
+	locomotive_erro_rem:
+		# Imprimindo que o vag„o escolhido para remoÁ„o È a locomotiva
+		la a0, txt_locomotive_rem
 		ecall
 
 		j interface
@@ -583,135 +571,137 @@ rem_ID:
 
 # ------- Listagem do Trem -------- #
 
-	# ---- Apresenta√ß√£o do t√≠tulo e inicializa√ß√£o
-listar:	
-			# Chama servi√ßo de imprimir texto pra imprimir o cabe√ßalho da fun√ß√£o
-			la a0, txt_inicio		
+	# ---- ApresentaÁ„o do tÌtulo e inicializaÁ„o
+list:	
+			# Chama serviÁo de imprimir texto pra imprimir o cabeÁalho da funÁ„o
+			la a0, txt_begin_list		
 			addi a7, zero, 4
 			ecall
 
 
-			# s3 = ponteiro (iterador) que vai percorrer o trem, come√ßando na cabe√ßa.
+			# s3 = ponteiro (iterador) que vai percorrer o trem, comeÁando na cabeÁa.
 			mv s3, s0	
 			
-			# Inicializa o registrador s8 como 1, que servir√° como contador das posi√ß√µes dos vag√µes
-			addi s8, zero, 1		
+			# Inicializa o registrador s8 como 1, que servir· como contador das posiÁıes dos vagıes
+			addi s6, zero, 1		
 
 	# ---- Percorrendo trem
-	loop_listar:
+	loop_list:
 
-			# -------- Condi√ß√£o de parada
-			# Se o valor do iterador √© nulo, encerramos e voltamos √† interface.
+		# -------- CondiÁ„o de parada
+			# Se o valor do iterador È nulo, encerramos e voltamos ‡ interface (acabou o trem).
 			beq s3, zero, interface		
 			
 
-			#  ------- Leitura do vag√£o atual
+		#  ------- Leitura do vag„o atual
 			# Damos load do valor de offset(s3) em s4 e s5.
 			lw s4, 0(s3)			# s4 = ID, offset 0
 			lw s5, 4(s3)			# s5 = tipo, offset 4
 			
-			# -------- Impress√£o de Texto
-			# Chamada e impress√£o do texto: "Vag√£o "
-			la a0, txt_vagao
+		# -------- Impress„o de Texto
+			# Chamada e impress„o do texto: "Vag„o "
+			la a0, txt_wagon_list
 			addi a7, zero, 4
 			ecall
 			
-			# Chamada e impress√£o da posi√ß√£o do vag√£o
-			add a0, zero, s8
+			# Chamada e impress„o da posiÁ„o do vag„o
+			add a0, zero, s6
 			addi a7, zero, 1
 			ecall
 			
-			# Itera o valor de s8
-			addi s8, s8, 1
+			# Itera o valor de s6
+			addi s6, s6, 1
 			
-			# -------- Impress√£o de Texto
-			# Chamada e impress√£o do texto: " -> [ID : "
-			la a0, txt_id
+		# -------- Impress„o de Texto
+			# Chamada e impress„o do texto: " -> [ID : "
+			la a0, txt_id_list
 			addi a7, zero, 4
 			ecall	
 
-			# -------- Impress√£o do ID (Inteiro)
+		# -------- Impress„o do ID (Inteiro)
 			mv a0, s4			
 			addi a7, zero, 1		
 			ecall
 			
-			# --------  Mais impress√£o de texto
-			# Texto que ser√° impresso: " | Tipo: "
-			la a0, txt_tipo
+		# --------  Mais impress„o de texto
+			# Texto que ser· impresso: " | Tipo: "
+			la a0, txt_type_list
 			addi a7, zero, 4
 			ecall
 			
-			# -------- Impress√£o do Tipo (Inteiro)
+		# -------- Impress„o do Tipo (Inteiro)
 			mv a0, s5			
 			addi a7, zero, 1		
 			ecall
 			
-			# -------- Mais impress√£o de texto
-			# Texto que ser√° impresso:  "]\n" (fechamento e quebra de linha)
-			la a0, txt_fecha
+		# -------- Mais impress„o de texto
+			# Texto que ser· impresso:  "]\n" (fechamento e quebra de linha)
+			la a0, txt_close_list
 			addi a7, zero, 4
 			ecall
 			
-			#--------- Atualiza√ß√£o do ponteiro 
-			# Essencialmente, estamos fazendo isso: vag√£o atual = (vag√£o atual)->proximo
+		#--------- AtualizaÁ„o do ponteiro 
+			# Essencialmente, estamos fazendo isso: vag„o atual = (vag„o atual)->proximo
 			lw s3, 8(s3)
 			
-			# Continua no loop at√© a parada, que ocorre ao alcan√ßar o fim do trem, cujo ponteiro √© nulo.
-			j loop_listar
+			# Continua no loop atÈ a parada, que ocorre ao alcanÁar o fim do trem, cujo ponteiro È nulo.
+			j loop_list
 
 # ------- Fim da Listagem do Trem ------ #
 
 
-# ------- Buscar Vag√£o ------ #
+# ------- Buscar Vag„o ------ #
 
-buscar:		#-------- Recebendo o ID
+search:		#-------- Recebendo o ID
 			
-			# Imprimindo solita√ß√£o do ID
-			la a0, txt_ID_busca
+			# Imprimindo solitaÁ„o do ID
+			la a0, txt_ID_search
 			addi a7, zero, 4
 			ecall
 			
-			# Lendo ID (inteiro) -> retorno estar√° em a0
+			# Lendo ID (inteiro) -> retorno estar· em a0
 			addi a7, zero, 5
 			ecall
 			 
 		# ------- Buscando ID
-			# Par√¢metro j√° est√° no a0
-			jal busca_ID
+			# Par‚metro j· est· no a0
+			jal search_ID
 			
 		# ------ Verificando retorno
 			
-			# Preparando para imprimir string na pr√≥xima chamada de sistema
+			# Preparando para imprimir string na prÛxima chamada de sistema
 			addi a7, zero, 4
 			
-			# Desviando a depender do retorno da fun√ß√£o
-			beq a1, zero, print_nao_existe
+			# Desviando a depender do retorno da funÁ„o
+			beq a1, zero, not_exist_search
 			
-		# ----- Resposta no caso de n√£o existir vag√£o com aquele ID 
+		# ----- Resposta no caso de n„o existir vag„o com aquele ID 
 		
-			la a0, txt_existe_busca
+			la a0, txt_exist_search
 			ecall
 			
 			j interface
 			
-		# ----- Resposta no caso de existir vag√£o com aquele ID 
+		# ----- Resposta no caso de existir vag„o com aquele ID 
 		
-	print_nao_existe:
+	not_exist_search:
 
-			la a0, txt_nao_existe_busca
+			la a0, txt_not_exist_search
 			ecall
 			
 			j interface
 
-# ----- Fim do Buscar Vag√£o ----- #
+# ----- Fim do Buscar Vag„o ----- #
 
-# ----- Sa√≠da do Jogo ----- #
+# ----- SaÌda do Jogo ----- #
 exit:	
+		# Carrega mensagem de despedida 
+		la a0, txt_bye			
 
-		la a0, seeya			# Carrega mensagem de despedida 
-
-		addi a7, zero, 4		# Imprime a mensagem de despedida
+		# Imprime a mensagem de despedida
+		addi a7, zero, 4		
 		ecall
 		
-		addi a7, zero, 10		# Encerra o programa na pr√≥xima chamada do sistema
+		# Encerra o programa na prÛxima chamada do sistema
+		addi a7, zero, 10		
 		ecall
