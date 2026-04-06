@@ -220,7 +220,9 @@ interface:
 		
 		# ---- Inicializações
 search_ID:		
-			# Não iremos empilhar, pois não há chamadas internas para outras funções
+			# Vamos empilhar s3 para seguir as boas práticas, pois iremos alterá-lo
+			addi sp, sp, -4
+			sw s3, 0(sp)
 			
 			# Passando o endereço da locomotiva para s3, pois iremos iterar sobre o trem
 			add s3, zero, s0
@@ -242,6 +244,10 @@ search_ID:
 				
 			# ---- Retorno no caso em que não existe vagão com aquele ID
 				addi a1, zero, 0
+
+				# Vamos desempilhar s3: terminamos de usá-lo
+				lw s3, 0(sp)
+				addi sp, sp, 4
 				
 				# Voltando a instrução seguinte em relação a onde ocorreu a chamada
 				jr ra 
@@ -250,6 +256,10 @@ search_ID:
 	exist_search_ID:
 				
 				addi a1, zero, 1
+
+				# Vamos desempilhar s3: terminamos de usá-lo
+				lw s3, 0(sp)
+				addi sp, sp, 4
 				
 				# Voltando a instrução seguinte em relação a onde ocorreu a chamada
 				jr ra
