@@ -1,12 +1,20 @@
+# =-=-=-=-=-=-=-=-=-=-=-=-= TRABALHO PRÁTICO I =-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
+	# João Pedro Conde Gomes Alves - 16816271 #
+	# Eduardo Benedini Bueno - 16862551 #
+	# José Fausto Vital Barbosa - 15512767 #
+	# Erik Min Soo Chung - 15450334 #
+# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= #
+
 # --------- SEGMENTO DE DADOS ---------- #
-						.data				
+				.data				
 
 
 # --------- Textos e Frases
 
 
-						# strings pode sem armazenadas com quaisquer alinhamentos.
-						.align 0												
+				# strings pode sem armazenadas com quaisquer alinhamentos.
+				.align 0												
 			
 # Mensagem de boas vindas 
 txt_hello:   			.asciz "Tchoo Tchoo! Tá na hora de montar uns trem bão por aí >:D\n\n"				
@@ -87,11 +95,12 @@ main:
 			# s1 -> Guarda entrada do usuário no menu de ações
 
 
-			# --- Registradores usados nas funções.
+			# --- Registradores usados nas funções separadamente.
 			
 			# s3 -> iterador, usado em loops, percorre o trem desde a locomotiva até o último vagão
 			# s4 -> guarda o ID do vagão novo/atual
 			# s5 -> guarda o Tipo do vagão novo/atual
+			# s6 -> contador para apresentar os vagões (usado na função de listar)
 			# s7 -> indica o endereço do vagão anterior ao indicado pelo iterador (usado na função de remover e inserção no fim)
 
 			
@@ -163,18 +172,18 @@ interface:
 			addi a7, zero, 4
 			ecall
 
-		# ------ Recebimento do input do usuário
+		# ------ Recebimento do input do usuário (get_input)
 			
 			# Lê inteiro e coloca o valor no registrador s1
 			addi a7, zero, 5		
 			ecall				
 			mv s1, a0			
 
-		# ------ Decisão do que fazer com base no input
+		# ------ Decisão do que fazer com base no input (branch_from_input)
 
 			# 1 - Adicionar no início
 			addi t0, zero, 1			
-			beq s1, t0, add_ini		# Se s1 == 1, pule para add_ini
+			beq s1, t0, add_begin		# Se s1 == 1, pule para add_begin
 			
 			# 2 - Adicionar no final
 			addi t0, zero, 2			
@@ -186,11 +195,11 @@ interface:
 			
 			# 4 - Listar Trem
 			addi t0, zero, 4			
-			beq s1, t0, list		# Se s1 == 4, pule para listar
+			beq s1, t0, list		# Se s1 == 4, pule para list
 			
 			# 5 - Buscar Vagão
 			addi t0, zero, 5			
-			beq s1, t0, search		# Se s1 == 5, pule para buscar
+			beq s1, t0, search		# Se s1 == 5, pule para search
 			
 			# 6 - Sair
 			addi t0, zero, 6			
@@ -392,7 +401,7 @@ get_type:
 
 
 		# ------ Lendo ID e Tipo do novo vagão (validando-os por funções auxiliares)
-add_ini:	
+add_begin:	
 			jal get_ID
 			mv s4, a1
 			jal get_type

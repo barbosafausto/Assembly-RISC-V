@@ -71,29 +71,3 @@ Recebe um ID do usuário, chama a sub-rotina `search_ID` e imprime uma mensagem 
 
 ### 6️⃣ Sair do Jogo (`exit`)
 Imprime a mensagem de fechamento e realiza a chamada de sistema (`ecall 10`) para encerrar o programa de forma limpa.
-
-# 🚧 Desafios Enfrentados e Soluções
-* **Gerenciamento de Ponteiros:** Demoramos um pouco para entender a diferença entre o conteúdo de um registrador e o conteúdo do endereço armazenado neste registrador:
-
-```mips
-# Vamos supor que s0 guarda um endereço.
-
-# Carrega o endereço de s0 em a0
-addi a0, s0, s0 
-
-# Carrega em a0 o valor guardado nos 4 primeiros bytes do endereço contido em s0 
-lw a0, 0(s0)    
-
-# Salva o valor de a0 nos 4 primeiros bytes do endereço contido em s0
-sw a0, 0(s0)
-```
-
- Com o prática e vários usos de *load* e *store*, essa dificuldade se tornou algo mais natural.
-
-
-* **Sobrescrita do Endereço de Retorno (`ra`):** Ao fazer chamadas de função aninhadas (ex: `add_begin` chamando `get_ID`, que chama `search_ID`), o registrador `ra` era perdido. A solução foi implementar o uso da pilha (`sp`) para preservar os endereços de retorno.
-
-# 🧠 Lições Aprendidas
-* Compreensão prática da alocação dinâmica de memória (Heap) através da chamada de sistema `ecall 9`.
-* Fixação dos conceitos de estrutura de dados (Lista Encadeada) traduzidos para o nível de hardware.
-* Entendimento da importância de anotar a funcionalidade de cada registrador no projeto para a modularização de código (e a separação de responsabilidades entre registradores "s", "t" e "a").
